@@ -22,7 +22,7 @@ Framework::Framework(int width, int height, Uint32 windowFlags)
     SDL_Log("Finished.");
 
     SDL_Surface *surface = IMG_Load("dog.jpg");
-    shipTex = SDL_CreateTextureFromSurface(renderer, surface);
+    dog = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
 }
 
@@ -39,9 +39,15 @@ void Framework::Handle()
 
 void Framework::Render()
 {
+    SDL_Rect rect;
+    rect.w = 1920/6;
+    rect.h = 1280/6;
+    rect.x = 40;
+    rect.y = 40;
+
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, shipTex, NULL, NULL);
+    SDL_RenderCopy(renderer, dog, NULL, &rect);
     SDL_RenderPresent(renderer);
 }
 

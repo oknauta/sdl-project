@@ -9,7 +9,7 @@ class Framework
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
-        SDL_Texture *shipTex;
+        SDL_Texture *dog;
         SDL_Event e;
         bool running;
     public:

@@ -6,8 +6,7 @@
 
 int main(int argc, char const *argv[])
 {
-    Framework *framework = new Framework
-    (800, 600, SDL_WINDOW_SHOWN);
+    Framework *framework = new Framework(800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
     while(framework->GetRunning())
     {
