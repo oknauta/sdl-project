@@ -8,8 +8,12 @@ int main(int argc, char const *argv[])
 {
     Framework *framework = new Framework
     (800, 600, SDL_WINDOW_SHOWN);
-    
-    framework->Update();
+
+    while(framework->GetRunning())
+    {
+        framework->Handle();
+        framework->Render();
+    }
 
     framework->~Framework();
     return 0;

@@ -9,10 +9,14 @@ class Framework
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
+        SDL_Texture *shipTex;
         SDL_Event e;
         bool running;
     public:
         Framework(int width, int height, Uint32 windowFlags);
-        void Update();
+        void Handle();
+        void Render();
         ~Framework();
+        
+        bool GetRunning() { return running; }
 };
