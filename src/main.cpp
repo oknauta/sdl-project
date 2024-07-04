@@ -1,19 +1,18 @@
 // File: `main.cpp`
-// Date: `2024-07-02`
-
+// Date: `2024-07-02 | 2024-07-03`
 
 #include "framework.hpp"
 
 int main(int argc, char const *argv[])
 {
-    Framework *framework = new Framework(800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    framework *window = new framework(800, 600, "SDL Window", SDL_WINDOW_SHOWN);
 
-    while(framework->GetRunning())
+    while(window->getRunning())
     {
-        framework->Handle();
-        framework->Render();
+        window->render();
+        window->update();
     }
 
-    framework->~Framework();
+    window->~framework();
     return 0;
 }

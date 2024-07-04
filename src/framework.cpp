@@ -1,32 +1,46 @@
 // File: `framework.cpp`
-// Date: `2024-07-02`
+// Date: `2024-07-02 | 2024-07-03`
 
 #include "framework.hpp"
 
-Framework::Framework(int width, int height, Uint32 windowFlags)
+framework::framework(int width, int height, const char *windowName, Uint32 windowFlags)
 {
-    SDL_Log("Starting SDL...");
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0 )
+    if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
-        running = true;    
+        running = true;
     }
     else
     {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error when starting the window.", NULL);
+        std::cerr << "Error trying to initializate app.\n";
         running = false;
     }
-    
 
-    SDL_Log("Creating window and renderer...");
-    SDL_CreateWindowAndRenderer(width, height, windowFlags, &window, &renderer);
-    SDL_Log("Finished.");
 
-    SDL_Surface *surface = IMG_Load("dog.jpg");
-    dog = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
+    if(SDL_CreateWindowAndRenderer(width, height, windowFlags, &window, &renderer) == 0)
+    {
+        running = true;
+    }
+    else
+    {
+        std::cerr << "Error trying to create window.\n";
+        running = false;
+    }
+
+    SDL_SetWindowTitle(window, windowName);
 }
 
-void Framework::Handle()
+void framework::render()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+
+    // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    // SDL_RenderDrawLine(renderer, 0, 0, 800, 600);
+
+    SDL_RenderPresent(renderer);
+}
+
+void framework::update()
 {
     while(SDL_PollEvent(&e))
     {
@@ -37,25 +51,9 @@ void Framework::Handle()
     }
 }
 
-void Framework::Render()
+framework::~framework()
 {
-    SDL_Rect rect;
-    rect.w = 1920/6;
-    rect.h = 1280/6;
-    rect.x = 40;
-    rect.y = 40;
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, dog, NULL, &rect);
-    SDL_RenderPresent(renderer);
-}
-
-Framework::~Framework()
-{
-    SDL_Log("Destroying window and renderer...");
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    SDL_Log("Quitting...");
     SDL_Quit();
 }

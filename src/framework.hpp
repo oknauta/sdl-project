@@ -1,22 +1,23 @@
 // File: `framework.hpp`
-// Date: `2024-07-02`
+// Date: `2024-07-02 | 2024-07-03`
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <iostream>
 
-class Framework
+class framework
 {
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
-        SDL_Texture *dog;
         SDL_Event e;
         bool running;
     public:
-        Framework(int width, int height, Uint32 windowFlags);
-        void Handle();
-        void Render();
-        ~Framework();
-        
-        bool GetRunning() { return running; }
+        framework(int width, int height, const char *name, Uint32 windowFlags);
+
+        void update();
+        void render();
+
+        bool getRunning() { return running; }
+
+        ~framework();
 };
